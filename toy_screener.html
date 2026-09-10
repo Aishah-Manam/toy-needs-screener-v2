@@ -191,6 +191,7 @@ footer p{max-width:66ch}
  <div class="act">
    <button type="button" id="go">Show recommendations</button>
    <button type="button" class="ghost" id="reset">Clear answers</button>
+   <button type="button" class="ghost" id="demoFill">Fill demo profile</button>
    <span class="count" id="count"></span>
  </div>
 
@@ -297,6 +298,29 @@ function updateCount(){
   const n = Object.keys(answers).length, t = MODEL.features.length;
   document.getElementById("count").textContent = n===t ? "All questions answered" : `${n} of ${t} answered`;
 }
+
+/* ---------- demo autofill (presentation aid, not shown to real caregivers) ---------- */
+// This exact profile was tested against the model separately: it produces a stable,
+// explainable result with a mix of "worth trying first" and low-confidence flags,
+// which is what makes it worth showing live rather than a random or edge-case profile.
+const DEMO_PROFILE = {
+  age:1, gender:1, severity:1, calm_freq:0, toy_tenure:2, calm_effect:3,
+  restless:3, upset:3, distract:3, fearful:3, tantrum:3, selfharm:1, fidget:3,
+  joint_use:5, express:3, improved:3, frustrate:2, overstim:2,
+  pref_colour:3, pref_shape:3, pref_material:5, pref_function:3
+};
+document.getElementById("demoFill").addEventListener("click", ()=>{
+  MODEL.features.forEach(q=>{
+    const val = DEMO_PROFILE[q.id];
+    if(val===undefined) return;           // safety: skip anything not in the profile
+    answers[q.id] = val;
+    const input = document.querySelector(`input[name="${q.id}"][value="${val}"]`);
+    if(input) input.checked = true;
+  });
+  updateCount();
+  document.getElementById("out").hidden = true;   // clear any previously shown results
+  document.getElementById("go").scrollIntoView({behavior:"smooth", block:"center"});
+});
 updateCount();
 
 /* ---------- forest inference ---------- */
