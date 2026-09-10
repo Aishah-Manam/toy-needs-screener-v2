@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Emotional Toy Needs — Profile Screener</title>
+<title>Emotional Toy Needs: Profile Screener</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Newsreader:opsz,wght@6..72,400;6..72,500;6..72,600&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -236,7 +236,7 @@ const CATEGORY_INFO = {
     why:"Pretend play lets a child rehearse everyday situations and emotions in a safe, low-pressure way.",
     tips:["A play kitchen, doctor kit, or dress-up box","Puppets or soft toys for acting out simple stories","Play figures for re-creating a daily routine (bedtime, mealtime)"]},
   Wearable:{icon:"\uD83E\uDDE3",
-    why:"Something worn on the body \u2014 weight, gentle pressure, or texture \u2014 can be soothing throughout the day, not just at playtime.",
+    why:"Something worn on the body, whether weight, gentle pressure, or texture, can be soothing throughout the day, not just at playtime.",
     tips:["A weighted lap pad or small weighted vest (check the right weight for your child's size)","A soft compression vest or snug-fitting garment","A chewable or textured necklace/bracelet designed for sensory needs"]},
   ModularExpandable:{icon:"\uD83D\uDD27",
     why:"Toys that can be rearranged or added to keep offering something new, which can hold interest longer than fixed toys.",
@@ -342,7 +342,7 @@ document.getElementById("go").addEventListener("click", ()=>{
   const out = document.getElementById("out");
   if(missing.length){
     out.hidden = false;
-    out.innerHTML = `<div class="caution"><p>Just a few more questions to go \u2014 answer the remaining ${missing.length}
+    out.innerHTML = `<div class="caution"><p>Just a few more questions to go, answer the remaining ${missing.length}
       question${missing.length>1?"s":""} to see your toy ideas. Next one:
       \u201c${missing[0].text}\u201d.</p></div>`;
     document.getElementsByName(missing[0].id)[0].closest(".q").scrollIntoView({behavior:"smooth",block:"center"});
@@ -355,7 +355,7 @@ document.getElementById("go").addEventListener("click", ()=>{
     if(o.auc < .58) return {badge:"unsure", label:"Not enough evidence yet"};
     if(o.lift >= .15) return {badge:"strong", label:"Strong match"};
     if(o.lift >= .08) return {badge:"good",   label:"Good match"};
-    if(o.lift > -.08) return {badge:"unsure", label:"Uncertain \u2014 could go either way"};
+    if(o.lift > -.08) return {badge:"unsure", label:"Uncertain: could go either way"};
     return {badge:"later", label:"Less likely fit"};
   }
 
@@ -363,16 +363,16 @@ document.getElementById("go").addEventListener("click", ()=>{
     ["\ud83c\udf1f", "Try these first", r.filter(o=>o.lift >= .08 && o.auc >= .58),
      "These stood out most for your child\u2019s answers compared with other families."],
     ["\ud83e\udd14", "Worth a look", r.filter(o=>(o.lift < .08 && o.lift > -.08) || o.auc < .58),
-     "The evidence here is thinner \u2014 could still be a good fit, just less certain from the answers alone."],
+     "The evidence here is thinner, but could still be a good fit, just less certain from the answers alone."],
     ["\ud83d\udce6", "Save for later", r.filter(o=>o.lift <= -.08 && o.auc >= .58),
-     "Lower priority for now based on this profile \u2014 not ruled out, just worth trying after the others."]
+     "Lower priority for now based on this profile; not ruled out, just worth trying after the others."]
   ];
 
   out.hidden = false;
   const introHtml = `<div class="introcard">
       <h2>Here\u2019s what to try</h2>
       <p>Based on your answers, these are ranked from the strongest match to the least
-      certain. Every child is different \u2014 use this as a starting point, and see what
+      certain. Every child is different, so use this as a starting point and see what
       actually holds your child\u2019s attention.</p>
     </div>`;
 
@@ -384,7 +384,7 @@ document.getElementById("go").addEventListener("click", ()=>{
       const pct = Math.round(o.p*100), base = Math.round(o.base*100);
       const tipsHtml = info.tips.map(t=>`<li>${t}</li>`).join("");
       const gentleHtml = (o.auc < .58) ? `<div class="gentle">Caregiver answers alone
-          don\u2019t give a clear read on this category for children generally \u2014 it\u2019s
+          don\u2019t give a clear read on this category for children generally, so it\u2019s
           fine to try, just keep expectations light and watch how your child actually responds.</div>` : "";
       return `<div class="card ${isTop?"top":""}">
         <div class="cardhead">
@@ -418,7 +418,7 @@ document.getElementById("go").addEventListener("click", ()=>{
 
   const talkHtml = `<div class="talkbox">
       <b>Bringing this to a therapist or teacher?</b> Share the \u201cTry these first\u201d
-      list above \u2014 it\u2019s a useful starting point for a conversation, not a diagnosis
+      list above, it\u2019s a useful starting point for a conversation, not a diagnosis
       or a treatment plan.
     </div>`;
 
